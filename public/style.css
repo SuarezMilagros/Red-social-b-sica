@@ -1,0 +1,993 @@
+/* ============================================================
+   1. CUSTOM PROPERTIES (variables CSS)
+   ============================================================ */
+   :root {
+    /* Paleta */
+    --color-bg:           #0a0a0f;
+    --color-bg-card:      #111118;
+    --color-bg-card2:     #18181f;
+    --color-bg-hover:     #1f1f28;
+    --color-borde:        #252530;
+    --color-borde-hover:  #38384a;
+    --color-texto:        #e2e2f0;
+    --color-texto-suave:  #8888a8;
+    --color-acento:       #c084fc;
+    --color-acento-dark:  #9333ea;
+    --color-acento-glow:  rgba(192, 132, 252, 0.15);
+    --color-exito:        #34d399;
+    --color-error:        #f87171;
+    --color-like:         #fb7185;
+
+    /* Tipografía */
+    --font-display:  'DM Serif Display', Georgia, serif;
+    --font-body:     'DM Sans', system-ui, sans-serif;
+
+    /* Espaciado */
+    --espacio-xs:   4px;
+    --espacio-sm:   8px;
+    --espacio-md:   16px;
+    --espacio-lg:   24px;
+    --espacio-xl:   32px;
+    --espacio-2xl:  48px;
+
+    /* Bordes */
+    --radio:        12px;
+    --radio-sm:     8px;
+    --radio-pill:   999px;
+
+    /* Sombras */
+    --sombra:       0 8px 32px rgba(0, 0, 0, 0.5);
+    --sombra-card:  0 2px 16px rgba(0, 0, 0, 0.3);
+    --sombra-glow:  0 0 32px rgba(192, 132, 252, 0.2);
+
+    /* Transiciones */
+    --transicion:   0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transicion-lenta: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   2. RESET Y BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-texto);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.65;
+    min-height: 100vh;
+    /* Textura sutil de fondo */
+    background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(192, 132, 252, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 100%, rgba(99, 102, 241, 0.04) 0%, transparent 50%);
+}
+
+/* Clase de utilidad para elementos solo para lectores de pantalla */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ============================================================
+   3. UTILIDADES
+   ============================================================ */
+.oculto {
+    display: none !important;
+}
+
+.pantalla {
+    min-height: 100vh;
+}
+
+/* ============================================================
+   4. MENSAJES DE ESTADO
+   ============================================================ */
+.mensaje-error,
+.mensaje-exito {
+    padding: var(--espacio-sm) var(--espacio-md);
+    border-radius: var(--radio-sm);
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: var(--espacio-sm);
+    animation: aparecer 0.3s ease;
+}
+
+.mensaje-error {
+    background-color: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    color: var(--color-error);
+}
+
+.mensaje-exito {
+    background-color: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    color: var(--color-exito);
+}
+
+/* ============================================================
+   5. BOTONES
+   ============================================================ */
+.btn-primario {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--espacio-sm);
+    background: linear-gradient(135deg, var(--color-acento), var(--color-acento-dark));
+    color: #fff;
+    border: none;
+    border-radius: var(--radio-pill);
+    padding: 11px 24px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity var(--transicion), transform var(--transicion), box-shadow var(--transicion);
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+}
+
+.btn-primario:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: var(--sombra-glow);
+}
+
+.btn-primario:active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.btn-primario:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-sm {
+    padding: 7px 16px;
+    font-size: 13px;
+}
+
+/* ============================================================
+   6. CAMPOS DE FORMULARIO
+   ============================================================ */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-xs);
+}
+
+.campo label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+#input-comentario {
+    width: 100%;
+    background-color: var(--color-bg-card2);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-sm);
+    color: var(--color-texto);
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 300;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color var(--transicion), box-shadow var(--transicion);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+#input-comentario:focus {
+    border-color: var(--color-acento);
+    box-shadow: 0 0 0 3px var(--color-acento-glow);
+}
+
+input::placeholder,
+textarea::placeholder,
+#input-comentario::placeholder {
+    color: var(--color-texto-suave);
+    opacity: 0.6;
+}
+
+textarea {
+    resize: none;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   7. PANTALLA AUTH
+   ============================================================ */
+.pantalla-auth {
+    display: grid;
+    place-items: center;
+    padding: var(--espacio-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decoración de fondo animada */
+.auth-deco {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: flotar 8s ease-in-out infinite;
+}
+
+.deco-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(192, 132, 252, 0.3), transparent);
+    top: -100px;
+    right: -100px;
+    animation-delay: 0s;
+}
+
+.deco-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.25), transparent);
+    bottom: -80px;
+    left: -80px;
+    animation-delay: -3s;
+}
+
+.deco-3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(251, 113, 133, 0.15), transparent);
+    top: 50%;
+    left: 30%;
+    animation-delay: -5s;
+}
+
+/* Tarjeta de auth */
+.auth-card {
+    position: relative;
+    z-index: 1;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: var(--espacio-xl) var(--espacio-xl);
+    width: 100%;
+    max-width: 420px;
+    box-shadow: var(--sombra);
+    animation: subirAparecer 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: var(--espacio-xl);
+}
+
+.brand {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: var(--color-texto);
+}
+
+.brand-punto {
+    color: var(--color-acento);
+}
+
+.brand-sub {
+    color: var(--color-texto-suave);
+    font-size: 13px;
+    margin-top: var(--espacio-xs);
+}
+
+/* Tabs de auth */
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-sm);
+    overflow: hidden;
+    margin-bottom: var(--espacio-lg);
+}
+
+.tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-texto-suave);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 400;
+    padding: 10px;
+    cursor: pointer;
+    transition: all var(--transicion);
+    position: relative;
+}
+
+.tab-btn.tab-activo {
+    background: linear-gradient(135deg, var(--color-acento), var(--color-acento-dark));
+    color: #fff;
+    font-weight: 500;
+}
+
+.tab-btn:not(.tab-activo):hover {
+    background-color: var(--color-bg-card2);
+    color: var(--color-texto);
+}
+
+/* Paneles de auth */
+.auth-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-md);
+}
+
+.auth-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-md);
+}
+
+/* ============================================================
+   8. NAVBAR
+   ============================================================ */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: rgba(10, 10, 15, 0.85);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 var(--espacio-lg);
+    height: 56px;
+}
+
+.navbar-brand {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: -1px;
+    color: var(--color-texto);
+    text-decoration: none;
+    transition: opacity var(--transicion);
+}
+
+.navbar-brand:hover {
+    opacity: 0.8;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-md);
+}
+
+.nav-username {
+    font-size: 13px;
+    color: var(--color-texto-suave);
+}
+
+.btn-salir {
+    background: transparent;
+    border: 1px solid var(--color-borde);
+    color: var(--color-texto-suave);
+    border-radius: var(--radio-pill);
+    padding: 6px 14px;
+    font-size: 12px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all var(--transicion);
+}
+
+.btn-salir:hover {
+    border-color: var(--color-acento);
+    color: var(--color-acento);
+}
+
+/* ============================================================
+   9. LAYOUT PRINCIPAL (Grid de dos columnas)
+   ============================================================ */
+.app-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: var(--espacio-lg);
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--espacio-xl) var(--espacio-lg);
+    align-items: start;
+}
+
+/* ============================================================
+   10. SIDEBAR
+   ============================================================ */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-md);
+    position: sticky;
+    top: calc(56px + var(--espacio-lg));
+}
+
+/* Tarjeta de perfil */
+.perfil-card {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: var(--espacio-md);
+    transition: border-color var(--transicion);
+}
+
+.perfil-card:hover {
+    border-color: var(--color-borde-hover);
+}
+
+.perfil-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-acento), var(--color-acento-dark));
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.perfil-nombre {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+.perfil-username {
+    color: var(--color-texto-suave);
+    font-size: 12px;
+}
+
+/* Tarjeta de nueva publicación */
+.nueva-pub-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: var(--espacio-md);
+    transition: border-color var(--transicion);
+}
+
+.nueva-pub-card:hover {
+    border-color: var(--color-borde-hover);
+}
+
+.card-titulo {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: var(--espacio-md);
+}
+
+.nueva-pub-card form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-sm);
+}
+
+.nueva-pub-card textarea {
+    margin-bottom: 0;
+}
+
+.pub-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.char-count {
+    font-size: 11px;
+    color: var(--color-texto-suave);
+}
+
+/* ============================================================
+   11. FEED
+   ============================================================ */
+.feed {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-md);
+    min-height: 200px;
+}
+
+.feed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.feed-titulo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+}
+
+.btn-refresh {
+    background: transparent;
+    border: 1px solid var(--color-borde);
+    color: var(--color-texto-suave);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all var(--transicion);
+}
+
+.btn-refresh:hover {
+    border-color: var(--color-acento);
+    color: var(--color-acento);
+    transform: rotate(90deg);
+}
+
+.loading {
+    text-align: center;
+    color: var(--color-texto-suave);
+    padding: var(--espacio-2xl) 0;
+    font-size: 14px;
+}
+
+.sin-publicaciones {
+    text-align: center;
+    color: var(--color-texto-suave);
+    padding: var(--espacio-2xl) 0;
+    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 18px;
+}
+
+/* Lista de publicaciones */
+#lista-publicaciones {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-md);
+}
+
+/* ============================================================
+   12. TARJETA DE PUBLICACIÓN
+   ============================================================ */
+.pub-card {
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    padding: var(--espacio-lg);
+    transition: border-color var(--transicion), transform var(--transicion);
+    animation: aparecer 0.3s ease;
+}
+
+.pub-card:hover {
+    border-color: var(--color-borde-hover);
+}
+
+/* Header de la tarjeta */
+.pub-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-md);
+    margin-bottom: var(--espacio-md);
+}
+
+.pub-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-acento), var(--color-acento-dark));
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.pub-autor-nombre {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.pub-autor-username {
+    color: var(--color-texto-suave);
+    font-size: 12px;
+}
+
+.pub-fecha {
+    color: var(--color-texto-suave);
+    font-size: 11px;
+    margin-left: auto;
+}
+
+/* Contenido de la publicación */
+.pub-contenido {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--color-texto);
+    margin-bottom: var(--espacio-md);
+    word-break: break-word;
+}
+
+/* Barra de acciones */
+.pub-acciones {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-sm);
+    flex-wrap: wrap;
+}
+
+.btn-accion {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio-pill);
+    padding: 5px 14px;
+    font-size: 12px;
+    font-family: var(--font-body);
+    color: var(--color-texto-suave);
+    cursor: pointer;
+    transition: all var(--transicion);
+}
+
+.btn-accion:hover {
+    border-color: var(--color-borde-hover);
+    color: var(--color-texto);
+}
+
+.btn-like:hover,
+.btn-like.liked {
+    border-color: var(--color-like);
+    color: var(--color-like);
+    background-color: rgba(251, 113, 133, 0.08);
+}
+
+.btn-comentar:hover {
+    border-color: var(--color-acento);
+    color: var(--color-acento);
+}
+
+.btn-editar:hover {
+    border-color: #60a5fa;
+    color: #60a5fa;
+}
+
+.btn-eliminar:hover {
+    border-color: var(--color-error);
+    color: var(--color-error);
+}
+
+.acciones-propietario {
+    margin-left: auto;
+    display: flex;
+    gap: var(--espacio-sm);
+}
+
+/* Formulario de edición inline */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-sm);
+}
+
+.edit-acciones {
+    display: flex;
+    gap: var(--espacio-sm);
+    justify-content: flex-end;
+}
+
+.btn-cancelar {
+    background: transparent;
+    border: 1px solid var(--color-borde);
+    color: var(--color-texto-suave);
+    border-radius: var(--radio-pill);
+    padding: 7px 14px;
+    font-size: 13px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all var(--transicion);
+}
+
+.btn-cancelar:hover {
+    border-color: var(--color-borde-hover);
+    color: var(--color-texto);
+}
+
+/* ============================================================
+   13. MODAL (usa el elemento <dialog> nativo de HTML5)
+   ============================================================ */
+.modal {
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radio);
+    background-color: var(--color-bg-card);
+    color: var(--color-texto);
+    padding: 0;
+    width: 100%;
+    max-width: 580px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: var(--sombra);
+}
+
+/* El backdrop del <dialog> nativo */
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.75);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+.modal[open] {
+    animation: subirAparecer 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-contenido {
+    padding: var(--espacio-xl);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--espacio-lg);
+}
+
+.modal-titulo {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.btn-cerrar-modal {
+    background: transparent;
+    border: none;
+    color: var(--color-texto-suave);
+    font-size: 18px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    transition: all var(--transicion);
+}
+
+.btn-cerrar-modal:hover {
+    background-color: var(--color-bg-card2);
+    color: var(--color-texto);
+}
+
+/* ============================================================
+   14. COMENTARIOS
+   ============================================================ */
+.comentarios-seccion {
+    border-top: 1px solid var(--color-borde);
+    margin-top: var(--espacio-lg);
+    padding-top: var(--espacio-lg);
+}
+
+.comentarios-titulo {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: var(--espacio-md);
+}
+
+/* Lista semántica de comentarios */
+.lista-comentarios {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.comentario-item {
+    padding: var(--espacio-md) 0;
+    border-bottom: 1px solid var(--color-borde);
+    animation: aparecer 0.3s ease;
+}
+
+.comentario-item:last-child {
+    border-bottom: none;
+}
+
+.comentario-header {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-sm);
+    margin-bottom: var(--espacio-xs);
+    flex-wrap: wrap;
+}
+
+.comentario-autor {
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.comentario-username {
+    color: var(--color-texto-suave);
+    font-size: 12px;
+}
+
+.comentario-fecha {
+    font-size: 11px;
+    color: var(--color-texto-suave);
+    margin-left: auto;
+}
+
+.comentario-texto {
+    font-size: 14px;
+    color: var(--color-texto);
+    line-height: 1.6;
+}
+
+.btn-eliminar-com {
+    background: transparent;
+    border: none;
+    color: var(--color-texto-suave);
+    cursor: pointer;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: var(--radio-sm);
+    transition: all var(--transicion);
+}
+
+.btn-eliminar-com:hover {
+    color: var(--color-error);
+    background-color: rgba(248, 113, 113, 0.1);
+}
+
+/* Formulario de comentario */
+.form-comentario {
+    margin-top: var(--espacio-md);
+}
+
+.comentario-input-row {
+    display: flex;
+    gap: var(--espacio-sm);
+}
+
+.comentario-input-row input {
+    flex: 1;
+}
+
+/* ============================================================
+   15. ANIMACIONES
+   ============================================================ */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes subirAparecer {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes flotar {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
+}
+
+/* ============================================================
+   16. SCROLLBAR PERSONALIZADA
+   ============================================================ */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-borde-hover);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-texto-suave);
+}
+
+/* ============================================================
+   17. RESPONSIVE
+   ============================================================ */
+@media (max-width: 720px) {
+    .app-layout {
+        grid-template-columns: 1fr;
+        padding: var(--espacio-md);
+    }
+
+    .sidebar {
+        position: static;
+    }
+
+    .auth-card {
+        padding: var(--espacio-lg);
+    }
+
+    .modal {
+        max-width: 100%;
+        margin: var(--espacio-md);
+    }
+}

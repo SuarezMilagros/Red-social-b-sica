@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="nodo. — Red Social TP3">
+    <title>nodo.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- =====================================================
+         SECCIÓN AUTH (login / registro)
+    ====================================================== -->
+    <main id="pantalla-auth" class="pantalla pantalla-auth">
+        <div class="auth-deco" aria-hidden="true">
+            <span class="deco-circle deco-1"></span>
+            <span class="deco-circle deco-2"></span>
+            <span class="deco-circle deco-3"></span>
+        </div>
+
+        <section class="auth-card" aria-label="Acceso a la plataforma">
+
+            <!-- Encabezado de la marca -->
+            <header class="auth-header">
+                <h1 class="brand">nodo<span class="brand-punto">.</span></h1>
+                <p class="brand-sub">Conectate con tu comunidad</p>
+            </header>
+
+            <!-- Navegación entre tabs -->
+            <nav class="auth-tabs" role="tablist" aria-label="Tipo de acceso">
+                <button
+                    id="tab-login"
+                    class="tab-btn tab-activo"
+                    role="tab"
+                    aria-selected="true"
+                    aria-controls="panel-login"
+                >
+                    Iniciar sesión
+                </button>
+                <button
+                    id="tab-registro"
+                    class="tab-btn"
+                    role="tab"
+                    aria-selected="false"
+                    aria-controls="panel-registro"
+                >
+                    Registrarse
+                </button>
+            </nav>
+
+            <!-- Panel Login -->
+            <section
+                id="panel-login"
+                class="auth-panel"
+                role="tabpanel"
+                aria-labelledby="tab-login"
+            >
+                <form id="form-login" novalidate>
+                    <div class="campo">
+                        <label for="login-email">Correo electrónico</label>
+                        <input
+                            type="email"
+                            id="login-email"
+                            name="email"
+                            placeholder="tu@correo.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+                    <div class="campo">
+                        <label for="login-password">Contraseña</label>
+                        <input
+                            type="password"
+                            id="login-password"
+                            name="password"
+                            placeholder="••••••••"
+                            autocomplete="current-password"
+                            required
+                        >
+                    </div>
+
+                    <output id="error-login" class="mensaje-error oculto" role="alert" aria-live="polite"></output>
+
+                    <button type="submit" id="btn-login-submit" class="btn-primario">
+                        Entrar
+                    </button>
+                </form>
+            </section>
+
+            <!-- Panel Registro -->
+            <section
+                id="panel-registro"
+                class="auth-panel oculto"
+                role="tabpanel"
+                aria-labelledby="tab-registro"
+            >
+                <form id="form-registro" novalidate>
+                    <div class="campo">
+                        <label for="reg-nombre">Nombre completo</label>
+                        <input
+                            type="text"
+                            id="reg-nombre"
+                            name="nombre"
+                            placeholder="Tu nombre"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+                    <div class="campo">
+                        <label for="reg-username">Nombre de usuario</label>
+                        <input
+                            type="text"
+                            id="reg-username"
+                            name="username"
+                            placeholder="@usuario"
+                            autocomplete="username"
+                            required
+                        >
+                    </div>
+                    <div class="campo">
+                        <label for="reg-email">Correo electrónico</label>
+                        <input
+                            type="email"
+                            id="reg-email"
+                            name="email"
+                            placeholder="tu@correo.com"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+                    <div class="campo">
+                        <label for="reg-password">Contraseña</label>
+                        <input
+                            type="password"
+                            id="reg-password"
+                            name="password"
+                            placeholder="Mínimo 6 caracteres"
+                            autocomplete="new-password"
+                            required
+                            minlength="6"
+                        >
+                    </div>
+
+                    <output id="error-registro" class="mensaje-error oculto" role="alert" aria-live="polite"></output>
+                    <output id="exito-registro" class="mensaje-exito oculto" role="status" aria-live="polite"></output>
+
+                    <button type="submit" id="btn-reg-submit" class="btn-primario">
+                        Crear cuenta
+                    </button>
+                </form>
+            </section>
+
+        </section>
+    </main>
+
+    <!-- =====================================================
+         APLICACIÓN PRINCIPAL (feed)
+    ====================================================== -->
+    <div id="pantalla-app" class="pantalla oculto">
+
+        <!-- Barra de navegación principal -->
+        <header class="navbar" role="banner">
+            <div class="navbar-inner">
+                <a href="#" class="navbar-brand" aria-label="nodo. inicio">
+                    nodo<span class="brand-punto">.</span>
+                </a>
+
+                <nav class="navbar-nav" aria-label="Navegación principal">
+                    <span id="nav-username" class="nav-username" aria-label="Usuario actual"></span>
+                    <button id="btn-logout" class="btn-salir" type="button" aria-label="Cerrar sesión">
+                        Salir
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Contenido principal con layout de dos columnas -->
+        <div class="app-layout">
+
+            <!-- Barra lateral izquierda -->
+            <aside class="sidebar" aria-label="Panel de usuario">
+
+                <!-- Tarjeta de perfil -->
+                <article class="perfil-card" aria-label="Tu perfil">
+                    <div class="perfil-avatar" id="perfil-avatar-letra" aria-hidden="true"></div>
+                    <div class="perfil-info">
+                        <p class="perfil-nombre" id="perfil-nombre"></p>
+                        <p class="perfil-username" id="perfil-username-display"></p>
+                    </div>
+                </article>
+
+                <!-- Formulario de nueva publicación -->
+                <article class="nueva-pub-card" aria-label="Crear publicación">
+                    <h2 class="card-titulo">Nueva publicación</h2>
+                    <form id="form-nueva-pub" novalidate>
+                        <label for="nueva-pub-contenido" class="sr-only">
+                            Escribí tu publicación
+                        </label>
+                        <textarea
+                            id="nueva-pub-contenido"
+                            placeholder="¿Qué estás pensando?"
+                            rows="4"
+                            maxlength="500"
+                            aria-describedby="char-count"
+                        ></textarea>
+                        <footer class="pub-footer">
+                            <output id="char-count" class="char-count" aria-live="polite">0 / 500</output>
+                            <button type="submit" id="btn-publicar" class="btn-primario btn-sm">
+                                Publicar
+                            </button>
+                        </footer>
+                    </form>
+                    <output id="error-nueva-pub" class="mensaje-error oculto" role="alert" aria-live="polite"></output>
+                </article>
+
+            </aside>
+
+            <!-- Feed principal -->
+            <main class="feed" role="main" aria-label="Feed de publicaciones">
+                <header class="feed-header">
+                    <h2 class="feed-titulo">Feed</h2>
+                    <button id="btn-refresh" class="btn-refresh" type="button" aria-label="Actualizar feed">
+                        ↻
+                    </button>
+                </header>
+
+                <p id="loading-feed" class="loading" role="status" aria-live="polite">
+                    Cargando publicaciones…
+                </p>
+
+                <!-- Lista de publicaciones — se llena dinámicamente -->
+                <section id="lista-publicaciones" aria-label="Publicaciones" aria-live="polite"></section>
+            </main>
+
+        </div>
+    </div>
+
+    <!-- =====================================================
+         MODAL: detalle de publicación + comentarios
+    ====================================================== -->
+    <dialog id="modal-pub" class="modal" aria-label="Publicación y comentarios">
+        <article class="modal-contenido">
+
+            <header class="modal-header">
+                <h3 class="modal-titulo">Publicación</h3>
+                <button id="btn-cerrar-modal" class="btn-cerrar-modal" type="button" aria-label="Cerrar">
+                    ✕
+                </button>
+            </header>
+
+            <!-- Cuerpo de la publicación -->
+            <section id="modal-pub-body" aria-label="Contenido de la publicación"></section>
+
+            <!-- Sección de comentarios -->
+            <section class="comentarios-seccion" aria-label="Comentarios">
+                <h4 class="comentarios-titulo">Comentarios</h4>
+
+                <ul id="modal-comentarios" class="lista-comentarios" aria-label="Lista de comentarios">
+                    <!-- Se llena dinámicamente -->
+                </ul>
+
+                <form id="form-comentario" class="form-comentario" novalidate>
+                    <label for="input-comentario" class="sr-only">Escribí un comentario</label>
+                    <div class="comentario-input-row">
+                        <input
+                            type="text"
+                            id="input-comentario"
+                            placeholder="Escribí un comentario…"
+                            autocomplete="off"
+                            maxlength="300"
+                        >
+                        <button type="submit" class="btn-primario btn-sm">Enviar</button>
+                    </div>
+                </form>
+            </section>
+
+        </article>
+    </dialog>
+
+    <script src="app.js"></script>
+</body>
+</html>
