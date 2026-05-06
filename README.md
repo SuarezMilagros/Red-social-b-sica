@@ -46,18 +46,6 @@ Copiar el archivo de ejemplo y completarlo con los datos reales:
 cp .env.example .env
 ```
 
-Editar el archivo `.env` con los valores correspondientes:
-
-```
-PORT=3000
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=redsocial_db
-DB_USER=tu_usuario
-DB_PASSWORD=tu_contraseña
-JWT_SECRET=una_clave_larga_y_secreta
-JWT_EXPIRES_IN=24h
-```
 
 > ⚠️ El archivo `.env` **nunca debe subirse al repositorio**. Está incluido en `.gitignore`. Subir el `.env` a un repositorio público o privado resulta en el TP desaprobado.
 
